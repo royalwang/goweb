@@ -16,6 +16,12 @@ func main() {
 	tmpl.AddFunc("pageChanging", utils.PageChanging)
 	app.RegisterView(tmpl)
 
+	InitRoutes(app)
+
+	app.Run(iris.Addr(":8080"))
+}
+
+func InitRoutes(app *iris.Application)  {
 	app.UseGlobal(controller.Before)
 
 	app.Get("/", controller.Index)
@@ -56,6 +62,4 @@ func main() {
 		function.Get("/group/{id}", controller.BasicAuth(controller.Functiongroup))
 		function.Post("/mapping/post", controller.BasicAuth(controller.Mappingpost))
 	}
-
-	app.Run(iris.Addr(":8080"))
 }
