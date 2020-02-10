@@ -1,7 +1,10 @@
 package utils
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/url"
+	"os"
 	"strconv"
 
 	"github.com/gorilla/securecookie"
@@ -42,4 +45,16 @@ func Check(ctx iris.Context) bool {
 		return true
 	}
 	return false
+}
+
+//for debugging
+func printPretty(v interface{}, mark string) (err error) {
+	fmt.Printf("*********%s\n", mark)
+	data, err := json.MarshalIndent(v, "", "  ")
+	if err != nil {
+		return
+	}
+	data = append(data, '\n')
+	os.Stdout.Write(data)
+	return
 }
